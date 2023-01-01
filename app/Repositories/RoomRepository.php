@@ -56,6 +56,9 @@ class RoomRepository
         $room = new $this->room;
         $room->user_id = $data['user_id'];
         $room->kost_id = $data['kost_id'];
+        $room->room_type = $data['room_type'];
+        $room->name = $data['name'];
+        $room->price = $data['price'];
         $room->availability = $data['availability'];
         $room->save();
         return $room->fresh();
@@ -72,6 +75,9 @@ class RoomRepository
         $room = $this->room->find($id);
         $room->user_id = $data['user_id'];
         $room->kost_id = $data['kost_id'];
+        $room->room_type = $data['room_type'];
+        $room->name = $data['name'];
+        $room->price = $data['price'];
         $room->availability = $data['availability'];
         $room->update();
         return $room;

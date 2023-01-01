@@ -61,7 +61,7 @@ class KostRepository
         $kost->phone = $data['phone'];
         $kost->location = $data['location'];
         $kost->description = $data['description'];
-        $kost->price = $data['price'];
+        // $kost->price = $data['price'];
         $kost->save();
         return $kost->fresh();
     }
@@ -82,7 +82,7 @@ class KostRepository
         $kost->phone = $data['phone'];
         $kost->location = $data['location'];
         $kost->description = $data['description'];
-        $kost->price = $data['price'];
+        // $kost->price = $data['price'];
         $kost->update();
         return $kost;
     }

@@ -14,4 +14,7 @@
 
 ## Project Reference
 
+1. Detail kost and rooms
 https://mamikos.com/room/kost-kota-jakarta-selatan-kost-campur-eksklusif-kost-singgahsini-mrt-haji-nawi-28-tipe-a-fatmawati-jakarta-selatan?redirection_source=home%20promo%20ngebut
+2. Premium user
+https://mamikos.com/info/kenali-premium/
