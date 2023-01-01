@@ -1,11 +1,10 @@
 <?php
 namespace App\Helpers;
-use App\Models\User;
 
 class CreditHelper {
     public const DEFAULT_CREDIT_OWNER = 0;
     public const DEFAULT_CREDIT_USER = 20;
-    public const DEFAULT_CREDIT_PREMIUM = 40;
+    public const DEFAULT_CREDIT_USER_PREMIUM = 40;
     public const ASK_REDUCE_CREDIT = 5;
 
     public static function getDefaultCredit(int $permission): int{
@@ -18,7 +17,7 @@ class CreditHelper {
                 $credit = self::DEFAULT_CREDIT_USER;
                 break;
             case 3:
-                $credit = self::DEFAULT_CREDIT_PREMIUM;
+                $credit = self::DEFAULT_CREDIT_USER_PREMIUM;
                 break;
         }
         return $credit;
