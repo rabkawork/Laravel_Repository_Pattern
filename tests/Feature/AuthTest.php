@@ -34,7 +34,7 @@ class AuthTest extends TestCase
     public function test_success_register()
     {
         $payload = [
-            "email" => "userx@gmail.com",
+            "email" => rand(10,100)."@gmail.com",
             "password" => "password",
             "name" => "Ahadian",
             "permission" => 2, // regular user
