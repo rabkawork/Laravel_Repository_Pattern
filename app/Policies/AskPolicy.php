@@ -30,7 +30,7 @@ class AskPolicy
      */
     public function view(User $user, Ask $ask)
     {
-        //
+        return true;
     }
 
     /**

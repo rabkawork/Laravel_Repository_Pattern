@@ -21,6 +21,21 @@ class KostPolicy
         //
     }
 
+
+    /**
+     * Determine whether the user can view any models.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function detail(User $user)
+    {
+        return true;
+    }
+
+
+
+
     /**
      * Determine whether the user can view the model.
      *
@@ -31,6 +46,7 @@ class KostPolicy
     public function view(User $user, Kost $kost)
     {
         //
+        return true;
     }
 
     /**
@@ -41,7 +57,7 @@ class KostPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->permission == 1 ? true : false;
     }
 
     /**
@@ -53,7 +69,7 @@ class KostPolicy
      */
     public function update(User $user, Kost $kost)
     {
-        //
+        return $user->permission == 1 ? true : false;
     }
 
     /**
@@ -65,7 +81,7 @@ class KostPolicy
      */
     public function delete(User $user, Kost $kost)
     {
-        //
+        return $user->permission == 1 ? true : false;
     }
 
     /**

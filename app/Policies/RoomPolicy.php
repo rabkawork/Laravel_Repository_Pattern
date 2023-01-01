@@ -30,7 +30,7 @@ class RoomPolicy
      */
     public function view(User $user, Room $room)
     {
-        //
+        return true;
     }
 
     /**
@@ -41,7 +41,7 @@ class RoomPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->permission == 1 ? true : false;
     }
 
     /**
@@ -53,7 +53,7 @@ class RoomPolicy
      */
     public function update(User $user, Room $room)
     {
-        //
+        return $user->permission == 1 ? true : false;
     }
 
     /**
@@ -65,7 +65,7 @@ class RoomPolicy
      */
     public function delete(User $user, Room $room)
     {
-        //
+        return $user->permission == 1 ? true : false;
     }
 
     /**

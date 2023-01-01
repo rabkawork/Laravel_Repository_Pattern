@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Kost extends Model
 {
     use HasFactory;
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
+
 }
