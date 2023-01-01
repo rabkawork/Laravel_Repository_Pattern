@@ -2,29 +2,38 @@
 
 namespace App\Http\Requests;
 
+use App\Helpers\ResponseJson;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class RegisterRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
+     * Get the validation rules that apply to the request.
+     * @return array<string, mixed>
      */
-    public function authorize()
+    public function rules(): array
     {
-        return false;
+        return [
+            'name' => 'required|string|max:30',
+            'email' => 'required|string|email|max:20|unique:users',
+            'password' => 'required|string|min:8',
+            'permission' => 'required|numeric|between:1,2,3'
+        ];
     }
 
     /**
-     * Get the validation rules that apply to the request.
+     * Handle a failed validation attempt.
      *
-     * @return array
+     * @param Validator $validator
+     * @return void
+     *
      */
-    public function rules()
+    public function failedValidation(Validator $validator)
     {
-        return [
-            //
-        ];
+        throw new HttpResponseException(
+            ResponseJson::responseBadOrError('Registration invalid',$validator, 400)
+        );
     }
 }
