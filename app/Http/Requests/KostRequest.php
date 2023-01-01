@@ -18,10 +18,10 @@ class KostRequest extends FormRequest
         return [
             'user_id' => 'required',
             'name' => 'required',
-            'city', => 'required',
-            'address', => 'required',
-            'phone', => 'required',
-            'location', => 'required',
+            'city' => 'required',
+            'address' => 'required',
+            'phone' => 'required',
+            'location' => 'required',
             'description' => 'required',
             'price' => 'required|numeric',
         ];
