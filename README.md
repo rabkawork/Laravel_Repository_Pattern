@@ -1,4 +1,29 @@
+### Postman
 
+[Goto Postman documentation](github.com/rabkawork/be-technicaltest/postman/MamikosTest.postman_collection.json)
+
+### How to deploy App
+
+1. Copy .env.example to .env
+    ```shell
+    cp .env.example .env
+    ```
+2. Composer Instal
+    ```shell
+    composer install
+    ``
+3. Running migration
+    ```shell
+    php artisan migrate:fresh --seed
+    ```
+4. Running project
+    ```shell
+    php artisan server -> http://localhost:8000
+    ```
+5. Running test
+    ```shell
+    php artisan test
+    ```
 
 ## Tech use
 
@@ -6,15 +31,4 @@
 2. Larvael 8
 3. Mariadb 10.5
 
-## How to use
 
-1. Config .env file with your local database connection 
-2. composer install 
-3. php artisan server -> http://localhost:8000
-
-## Project Reference
-
-1. Detail kost and rooms
-https://mamikos.com/room/kost-kota-jakarta-selatan-kost-campur-eksklusif-kost-singgahsini-mrt-haji-nawi-28-tipe-a-fatmawati-jakarta-selatan?redirection_source=home%20promo%20ngebut
-2. Premium user
-https://mamikos.com/info/kenali-premium/

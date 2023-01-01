@@ -1,0 +1,657 @@
+{
+	"info": {
+		"_postman_id": "7db902ce-466b-4565-984c-bc8e175a08ac",
+		"name": "Mamikos Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17280978"
+	},
+	"item": [
+		{
+			"name": "Kost",
+			"item": [
+				{
+					"name": "Search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/kosts?name=Malang",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"kosts"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Malang"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Kosan Malang",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Malang",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "Jalan Soekarno Hatta",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "1234567",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "Malang",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "lorem ipsum dolor ",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/kosts",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"kosts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Kosan Malang",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Malang",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "Jalan Soekarno Hatta",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "1234567",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "Malang",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "lorem ipsum dolor ",
+									"description": "_",
+									"type": "text"
+								},
+								{
+									"key": "_method",
+									"value": "put",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/kosts/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"kosts",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/kosts/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"kosts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Owner Data",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/kosts/owner",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"kosts",
+								"owner"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Room",
+			"item": [
+				{
+					"name": "Showing Data",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/rooms",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"rooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "kost_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "room_type",
+									"value": "Tipe B",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "15000",
+									"type": "text"
+								},
+								{
+									"key": "availability",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "payment_type",
+									"value": "Cicil",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Ruangan Besar",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/rooms",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"rooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "kost_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "room_type",
+									"value": "Tipe B",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "15000",
+									"type": "text"
+								},
+								{
+									"key": "availability",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "payment_type",
+									"value": "Cicil",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Ruangan Besar",
+									"type": "text"
+								},
+								{
+									"key": "_method",
+									"value": "put",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/rooms/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"rooms",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/rooms/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"rooms",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Owner Data",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/kosts/owner",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"kosts",
+								"owner"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CreditUsage",
+			"item": [
+				{
+					"name": "Usage",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/usage",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"usage"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ask Owner",
+			"item": [
+				{
+					"name": "Ask",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "kost_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/ask-owner",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"ask-owner"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "_method",
+							"value": "post",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "user@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "_method",
+							"value": "post",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "user@egmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/logout",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "_method",
+							"value": "post",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "owner@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Ahadian",
+							"type": "text"
+						},
+						{
+							"key": "permission",
+							"value": "1",
+							"description": "1 = OWNER, 2 = USER Reguler, 3 = USER PREMIUM",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/register",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
