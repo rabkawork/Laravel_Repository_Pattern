@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ResponseJson;
+use App\Http\Requests\KostRequest;
 use App\Models\Kost;
 use App\Service\KostService;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KostController extends Controller
 {
@@ -32,24 +36,30 @@ class KostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $data = $this->kostService->getAll();
-            return $this->successResponse($data, 'Kost has been loaded');
+            $search['name'] = $request->query('name');
+            $search['price'] = $request->query('price');
+            $search['location'] = $request->query('location');
+            $search['sort'] = $request->query('sort');
+            $data = $this->kostService->getAll($search);
+            return ResponseJson::responseSuccess('Success showing kost data', $data);
         } catch (Exception $e) {
-            return $this->errorResponse('Kost has been loaded', $e->getMessage(), HttpStatus::HTTP_INTERNAL_SERVER_ERROR);
+            return ResponseJson::responseBadOrError('Kost data error', $e->getMessage(), ResponseJson::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+
+    public function listowner()
     {
-        //
+        try {
+            $user = Auth::user();
+            $data = $this->kostService->getdataOwner($user->id);
+            return ResponseJson::responseSuccess('Success showing kost data', $data);
+        } catch (Exception $e) {
+            return ResponseJson::responseBadOrError('Kost data error', $e->getMessage(), ResponseJson::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -61,16 +71,14 @@ class KostController extends Controller
     public function store(KostRequest $request)
     {
         try {
-            $user = Auth::user();
-            if ($user->can('create', Kost::class)) {
-                $data = $this->kostService->saveKostData($request);
-                return $this->successResponse($data, 'Kost has been saved');
-            } else {
-                return $this->errorResponse("You don't have access to create Kost", null, HttpStatus::HTTP_UNAUTHORIZED);
-            }
+            $post = $request->all();
+            $post['user_id'] = Auth::user()->id;
+            $data = $this->kostService->saveKostData($post);
+            return ResponseJson::responseSuccess('Kost has been saved', $data);
         } catch (Exception $e) {
-            return $this->errorResponse('Error', $e->getMessage(), HttpStatus::HTTP_INTERNAL_SERVER_ERROR);
+            return ResponseJson::responseBadOrError('Save data error', $e->getMessage(), ResponseJson::HTTP_INTERNAL_SERVER_ERROR);
         }
+
     }
 
     /**
@@ -79,25 +87,17 @@ class KostController extends Controller
      * @param  \App\Models\Kost  $Kost
      * @return \Illuminate\Http\Response
      */
-    public function show(Kost $Kost)
+    public function show(Kost $kost): JsonResponse
     {
         try {
-            $data = $this->kostService->getById($Kost->id);
-            return $this->successResponse($data, 'Kost data');
+            if ( !empty($kost) )  {
+                return ResponseJson::responseSuccess('Data has been saved', $kost);
+            } else {
+                return ResponseJson::responseBadOrError('Kost data not found', [], ResponseJson::HTTP_NOT_FOUND);
+            }
         } catch (Exception $e) {
-            return $this->errorResponse('Error', $e->getMessage(), HttpStatus::HTTP_INTERNAL_SERVER_ERROR);
+            return ResponseJson::responseBadOrError('Save data error', $e->getMessage(), ResponseJson::HTTP_INTERNAL_SERVER_ERROR);
         }
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Kost  $Kost
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Kost $Kost)
-    {
-        //
     }
 
     /**
@@ -107,22 +107,25 @@ class KostController extends Controller
      * @param  \App\Models\Kost  $Kost
      * @return \Illuminate\Http\Response
      */
-    public function update(KostRequest $request, Kost $Kost): JsonResponse
+    public function update(KostRequest $request, $id): JsonResponse
     {
         try {
             $user = Auth::user();
-            if ($user->can('update', $Kost)) {
-                if ( !empty($Kost) ) {
-                    $data = $this->kostService->updateKost($request, $Kost->id);
-                    return $this->successResponse($data, 'Success updated Kost data');
+            $kost = Kost::find($id);
+            if ($user->can('update', $kost)) {
+                if ( !empty($kost) )  {
+                    $post = $request->all();
+                    $post['user_id'] = Auth::user()->id;
+                    $data = $this->kostService->updateKost($post, $kost->id);
+                    return ResponseJson::responseSuccess('Data has been updated', $data);
                 } else {
-                    return $this->errorResponse('Data Invalid', null, HttpStatus::HTTP_NOT_FOUND);
+                    return ResponseJson::responseBadOrError('Kost data not found', [], ResponseJson::HTTP_NOT_FOUND);
                 }
             } else {
-                return $this->errorResponse("You don't have access to create Kost", null, HttpStatus::HTTP_UNAUTHORIZED);
+                return ResponseJson::responseBadOrError("You only can update your own data", [], ResponseJson::HTTP_BAD_GATEWAY);
             }
         } catch (Exception $e) {
-            return $this->errorResponse('Error', $e->getMessage(), HttpStatus::HTTP_INTERNAL_SERVER_ERROR);
+            return ResponseJson::responseBadOrError('Update data error', $e->getMessage(), ResponseJson::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -132,23 +135,23 @@ class KostController extends Controller
      * @param  \App\Models\Kost  $Kost
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Kost $Kost): JsonResponse
+    public function destroy($id): JsonResponse
     {
         try {
-
             $user = Auth::user();
-            if ($user->can('delete', $Kost)) {
-                if ( !empty($Kost) ) {
-                    $data = $this->kostService->deleteById($Kost->id);
-                    return $this->successResponse($data, 'Success deleted Kost data');
+            $kost = Kost::find($id);
+            if ($user->can('update', $kost)) {
+                if ( !empty($kost) )  {
+                    $data = $this->kostService->deleteById($kost->id);
+                    return ResponseJson::responseSuccess('Kost data has been deleted', $data);
                 } else {
-                    return $this->errorResponse('Data Invalid', null, HttpStatus::HTTP_NOT_FOUND);
+                    return ResponseJson::responseBadOrError('Kost data not found', [], ResponseJson::HTTP_NOT_FOUND);
                 }
             } else {
-                return $this->errorResponse("You don't have access to create Kost", null, HttpStatus::HTTP_UNAUTHORIZED);
+                return ResponseJson::responseBadOrError("You only can delete your own data", [], ResponseJson::HTTP_BAD_GATEWAY);
             }
         } catch (Exception $e) {
-            return $this->errorResponse('Error', $e->getMessage(), HttpStatus::HTTP_INTERNAL_SERVER_ERROR);
+            return ResponseJson::responseBadOrError('Delete data error', $e->getMessage(), ResponseJson::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

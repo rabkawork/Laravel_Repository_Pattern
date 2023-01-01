@@ -16,6 +16,7 @@ class CreateAsksessionsTable extends Migration
         Schema::create('ask_sessions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
+            $table->integer('kost_id');
             $table->string('ticket_code',30);
             $table->timestamps();
         });

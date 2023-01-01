@@ -24,6 +24,6 @@ class UsecreditHelper {
     }
 
     public static function askOwnerKos($total) {
-        return (int) ($total - self::ASK_REDUCE_CREDIT);
+        return  (int)$total - self::ASK_REDUCE_CREDIT;
     }
 }

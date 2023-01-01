@@ -28,8 +28,7 @@ class RoomRepository
      */
     public function getAll()
     {
-        return $this->room
-            ->get();
+        return $this->room->with('kost')->get();
     }
 
     /**
@@ -57,6 +56,7 @@ class RoomRepository
         $room->user_id = $data['user_id'];
         $room->kost_id = $data['kost_id'];
         $room->room_type = $data['room_type'];
+        $room->payment_type = $data['payment_type'];
         $room->name = $data['name'];
         $room->price = $data['price'];
         $room->availability = $data['availability'];
@@ -76,6 +76,7 @@ class RoomRepository
         $room->user_id = $data['user_id'];
         $room->kost_id = $data['kost_id'];
         $room->room_type = $data['room_type'];
+        $room->payment_type = $data['payment_type'];
         $room->name = $data['name'];
         $room->price = $data['price'];
         $room->availability = $data['availability'];

@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Credit;
+use Illuminate\Support\Facades\Auth;
 
 class CreditRepository
 {
@@ -28,8 +29,8 @@ class CreditRepository
      */
     public function getAll()
     {
-        return $this->credit
-            ->get();
+        $user = Auth::user();
+        return $this->credit->where('user_id',$user->id)->get();
     }
 
     /**
@@ -43,6 +44,13 @@ class CreditRepository
         return $this->credit
             ->where('id', $id)
             ->get();
+    }
+
+    public function getByUserid($id)
+    {
+        return $this->credit
+            ->where('user_id', $id)
+            ->first();
     }
 
     /**

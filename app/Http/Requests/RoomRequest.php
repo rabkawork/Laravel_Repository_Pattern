@@ -18,7 +18,7 @@ class RoomRequest extends FormRequest
         return [
             'name' => 'required',
             'price' => 'required',
-            'user_id' => 'required',
+            // 'user_id' => 'required',
             'kost_id' => 'required|exists:kosts,id',
             'room_type' => 'required',
             'payment_type' => 'required',
@@ -36,7 +36,7 @@ class RoomRequest extends FormRequest
     public function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(
-            ResponseJson::responseBadOrError('Room invalid',$validator, 400)
+            ResponseJson::responseBadOrError('Room invalid',$validator->errors(), 400)
         );
     }
 }

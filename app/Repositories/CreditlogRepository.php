@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Creditlog;
+use Illuminate\Support\Facades\Auth;
 
 class CreditlogRepository
 {
@@ -28,8 +29,8 @@ class CreditlogRepository
      */
     public function getAll()
     {
-        return $this->creditlog
-            ->get();
+        $user = Auth::user();
+        return $this->creditlog->where('user_id',$user->id)->get();
     }
 
     /**

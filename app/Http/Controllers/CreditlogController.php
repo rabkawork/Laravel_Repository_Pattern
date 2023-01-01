@@ -2,11 +2,43 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ResponseJson;
 use App\Models\Creditlog;
+use App\Service\CreditlogService;
+use App\Service\CreditService;
+use Exception;
 use Illuminate\Http\Request;
 
 class CreditlogController extends Controller
 {
+
+    /**
+     * @var CreditlogService
+     */
+    protected $creditlogService;
+
+
+
+    /**
+     * @var CreditService
+     */
+    protected $creditService;
+
+
+     /**
+     * PostController Constructor
+     *
+     * @param CreditlogService $CreditlogService
+     *
+     */
+    public function __construct(CreditlogService $creditlogService, CreditService $creditService)
+    {
+        $this->creditlogService = $creditlogService;
+        $this->creditService = $creditService;
+    }
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -14,72 +46,12 @@ class CreditlogController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Creditlog  $creditlog
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Creditlog $creditlog)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Creditlog  $creditlog
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Creditlog $creditlog)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Creditlog  $creditlog
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Creditlog $creditlog)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Creditlog  $creditlog
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Creditlog $creditlog)
-    {
-        //
+        try {
+            $data['credit'] = $this->creditService->getAll();
+            $data['history'] = $this->creditlogService->getAll();
+            return ResponseJson::responseSuccess('Success creadit usage', $data);
+        } catch (Exception $e) {
+            return ResponseJson::responseBadOrError('Credit usage data error', $e->getMessage(), ResponseJson::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

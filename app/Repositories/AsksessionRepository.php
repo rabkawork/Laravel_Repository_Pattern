@@ -55,6 +55,7 @@ class AsksessionRepository
     {
         $asksession = new $this->asksession;
         $asksession->user_id = $data['user_id'];
+        $asksession->kost_id = $data['kost_id'];
         $asksession->ticket_code = $data['ticket_code'];
         $asksession->save();
         return $asksession->fresh();
@@ -70,6 +71,7 @@ class AsksessionRepository
     {
         $asksession = $this->asksession->find($id);
         $asksession->user_id = $data['user_id'];
+        $asksession->kost_id = $data['kost_id'];
         $asksession->ticket_code = $data['ticket_code'];
         $asksession->update();
         return $asksession;

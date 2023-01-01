@@ -6,6 +6,7 @@ use App\Models\Room;
 use App\Repositories\CreditRepository;
 
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
@@ -66,6 +67,19 @@ class CreditService
     public function getById($id)
     {
         return $this->creditRepository->getById($id);
+    }
+
+
+    /**
+     * Get post by id.
+     *
+     * @param $id
+     * @return String
+     */
+    public function getByUserId()
+    {
+        $user = Auth::user();
+        return $this->creditRepository->getByUserId($user->id);
     }
 
     /**

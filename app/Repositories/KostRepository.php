@@ -3,6 +3,8 @@
 namespace App\Repositories;
 
 use App\Models\Kost;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 
 class KostRepository
 {
@@ -26,11 +28,43 @@ class KostRepository
      *
      * @return Kost $kost
      */
-    public function getAll()
+    public function getAll($search = array())
     {
-        return $this->kost
-            ->get();
+
+        $kost = DB::table('kosts')
+            ->leftJoin('rooms', 'kosts.id', '=', 'rooms.kost_id')
+            ->select('kosts.*', 'rooms.room_type', 'rooms.name as room_name', 'rooms.price');
+
+        if (!empty($search['name'])) {
+            $kost->where('kosts.name','LIKE','%'.$search['name'].'%');
+        }
+
+        if (!empty($search['location'])) {
+            $kost->where('kosts.location','LIKE','%'.$search['location'].'%');
+        }
+
+        if (!empty($search['price'])) {
+            $kost->where('rooms.price',$search['price']);
+        }
+
+        if (!empty($search['sort'])) {
+            $kost->orderBy('rooms.price',$search['sort']);
+        }
+        return $kost->get();
     }
+
+
+     /**
+     * Get all Kosts.
+     *
+     * @return Kost $kost
+     */
+    public function getOwner($id)
+    {
+        return $this->kost->with('room')->where('user_id',$id)->get();
+    }
+
+
 
     /**
      * Get Kost by id
@@ -61,7 +95,6 @@ class KostRepository
         $kost->phone = $data['phone'];
         $kost->location = $data['location'];
         $kost->description = $data['description'];
-        // $kost->price = $data['price'];
         $kost->save();
         return $kost->fresh();
     }
@@ -82,7 +115,6 @@ class KostRepository
         $kost->phone = $data['phone'];
         $kost->location = $data['location'];
         $kost->description = $data['description'];
-        // $kost->price = $data['price'];
         $kost->update();
         return $kost;
     }

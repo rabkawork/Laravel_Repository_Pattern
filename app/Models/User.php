@@ -12,6 +12,10 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public const OWNER = 1;
+    public const REGULAR_USER = 2;
+    public const PREMIUM_USER = 3;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -42,4 +46,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function credit()
+    {
+        return $this->belongsTo(Credit::class);
+    }
 }

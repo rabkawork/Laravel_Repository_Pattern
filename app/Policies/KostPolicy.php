@@ -69,7 +69,7 @@ class KostPolicy
      */
     public function update(User $user, Kost $kost)
     {
-        return $user->permission == 1 ? true : false;
+        return $user->id == $kost->user_id ? true : false;
     }
 
     /**
@@ -81,7 +81,7 @@ class KostPolicy
      */
     public function delete(User $user, Kost $kost)
     {
-        return $user->permission == 1 ? true : false;
+        return $user->id == $kost->user_id ? true : false;
     }
 
     /**

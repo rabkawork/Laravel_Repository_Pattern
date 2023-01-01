@@ -15,7 +15,7 @@ class AsksessionService
     /**
      * @var $AsksessionRepository
      */
-    protected $AsksessionRepository;
+    protected $asksessionRepository;
 
     /**
      * AsksessionService constructor.
@@ -92,6 +92,7 @@ class AsksessionService
      */
     public function saveAsksessionData($data)
     {
+        $data['ticket_code'] = 'MKASK-'.time();
         $result = $this->asksessionRepository->save($data);
         return $result;
     }

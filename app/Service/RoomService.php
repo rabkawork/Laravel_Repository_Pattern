@@ -52,9 +52,9 @@ class RoomService
      *
      * @return String
      */
-    public function getAll()
+    public function getAll($search = array())
     {
-        return $this->roomRepository->getAll();
+        return $this->roomRepository->getAll($search);
     }
 
     /**

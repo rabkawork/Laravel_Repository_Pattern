@@ -3,9 +3,11 @@
 namespace App\Service;
 
 use App\Models\Kost;
+use App\Models\User;
 use App\Repositories\KostRepository;
 
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
@@ -28,7 +30,7 @@ class KostService
     }
 
     /**
-     * Delete post by id.
+     * Delete by id.
      *
      * @param $id
      * @return String
@@ -48,14 +50,29 @@ class KostService
     }
 
     /**
-     * Get all post.
+     * Get all data.
      *
      * @return String
      */
-    public function getAll()
+    public function getAll($search = array())
     {
-        return $this->kostRepository->getAll();
+        return $this->kostRepository->getAll($search);
     }
+
+
+    /**
+     * Get owner data.
+     *
+     * @return String
+     */
+    public function getdataOwner($id)
+    {
+        return $this->kostRepository->getOwner($id);
+    }
+
+
+
+
 
     /**
      * Get post by id.

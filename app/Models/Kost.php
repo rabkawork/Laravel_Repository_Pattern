@@ -11,7 +11,7 @@ class Kost extends Model
 
     public function room()
     {
-        return $this->belongsTo(Room::class);
+        return $this->hasMany(Room::class,'kost_id');
     }
 
 }

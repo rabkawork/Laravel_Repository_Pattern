@@ -13,6 +13,7 @@ use Auth;
 use Validator;
 use App\Service\UserService;
 use Exception;
+use Illuminate\Http\JsonResponse;
 
 class UserController extends Controller
 {
@@ -38,7 +39,7 @@ class UserController extends Controller
         $this->creditlogService = $creditlogService;
     }
 
-    public function register(RegisterRequest $request)
+    public function register(RegisterRequest $request): JsonResponse
     {
         try {
             $post = $request->all();
@@ -60,12 +61,15 @@ class UserController extends Controller
         }
     }
 
-    public function login(LoginRequest $request)
+
+
+    public function login(LoginRequest $request): JsonResponse
     {
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
             $user = Auth::user();
             $result['token'] =  $user->createToken('MyApp')->plainTextToken;
             $result['name']  =  $user->name;
+            $result['token_type']  =  'bearer';
             return ResponseJson::responseSuccess('User login successfully.', $result);
         } else {
             return ResponseJson::responseBadOrError("Login failed",array(), ResponseJson::HTTP_UNAUTHORIZED);
@@ -75,7 +79,11 @@ class UserController extends Controller
     // method for user logout and delete token
     public function logout()
     {
-        $session = auth()->user()->tokens()->delete();
-        return ResponseJson::responseSuccess('Logout success', []);
+        try {
+            $session = auth()->user()->tokens()->delete();
+            return ResponseJson::responseSuccess('Logout success', []);
+        } catch (Exception $e) {
+            return ResponseJson::responseBadOrError('Registration error', $e->getMessage(), ResponseJson::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }
