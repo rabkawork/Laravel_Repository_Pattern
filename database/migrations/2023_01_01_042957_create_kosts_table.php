@@ -22,7 +22,6 @@ class CreateKostsTable extends Migration
             $table->string('phone',15);
             $table->string('location',150);
             $table->text('description');
-            $table->double('price');
             $table->timestamps();
         });
     }
