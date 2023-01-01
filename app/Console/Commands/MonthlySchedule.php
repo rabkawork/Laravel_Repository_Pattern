@@ -17,14 +17,14 @@ class MonthlySchedule extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'monthly:schedule';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Schedule to recharge credit';
 
     /**
      * Create a new command instance.
@@ -45,40 +45,27 @@ class MonthlySchedule extends Command
     {
 
         try {
-            $offset = 0;
-            $limit = 30;
-            $flag = false;
-            while ($flag === false) {
-                $users = User::whereIn('permission', [User::REGULAR_USER, User::PREMIUM_USER])
-                    ->orderBy('id', 'ASC')
-                    ->offset($offset)
-                    ->limit($limit)
-                    ->get();
-                if (count($users) === 0) {
-                    $flag = true;
-                }
+            $users = User::whereIn('permission', [User::REGULAR_USER, User::PREMIUM_USER])
+                ->orderBy('id', 'ASC')
+                ->get();
 
-                foreach ($users as $user) {
-                    $defaultCredit = UsecreditHelper::getDefaultCredit($user->permission);
-                    $credit = Credit::where('user_id',$user->id)->first();
-                    $currentCredit = $credit->credit_total + $defaultCredit;
-                    $updateCredit = Credit::find($credit->id);
-                    $updateCredit->credit_total = $currentCredit;
-                    $updateCredit->update();
+            foreach ($users as $user) {
+                $defaultCredit = UsecreditHelper::getDefaultCredit($user->permission);
+                $credit = Credit::where('user_id',$user->id)->first();
+                $currentCredit = $credit->credit_total + $defaultCredit;
+                $updateCredit = Credit::find($credit->id);
+                $updateCredit->credit_total = $currentCredit;
+                $updateCredit->update();
 
-                    $creditlog = new Creditlog;
-                    $creditlog->user_id = $user->id;
-                    $creditlog->credit_id = $credit->id;
-                    $creditlog->amount = $currentCredit;
-                    $creditlog->description = 'Monthly Recharge - '.$currentCredit;
-                    $creditlog->save();
-
-
-                }
-                $offset += $limit;
+                $creditlog = new Creditlog;
+                $creditlog->user_id = $user->id;
+                $creditlog->credit_id = $credit->id;
+                $creditlog->amount = $currentCredit;
+                $creditlog->description = 'Monthly Recharge - '.$currentCredit;
+                $creditlog->save();
             }
 
-            Log::info('Recharge credit success.');
+            Log::info('Recharge credit done');
             return "success";
         } catch (\Exception $e) {
             Log::error($e->getMessage());
