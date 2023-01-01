@@ -56,7 +56,9 @@ class CreditRepository
         $credit = new $this->credit;
         $credit->user_id = $data['user_id'];
         $credit->credit_total = $data['credit_total'];
-        $credit->flag_monthly_reset = $data['flag_monthly_reset'];
+        if ( !empty($data['flag_monthly_reset']) ) {
+            $credit->flag_monthly_reset = $data['flag_monthly_reset'];
+        }
         $credit->save();
         return $credit->fresh();
     }
@@ -72,7 +74,9 @@ class CreditRepository
         $credit = $this->credit->find($id);
         $credit->user_id = $data['user_id'];
         $credit->credit_total = $data['credit_total'];
-        $credit->flag_monthly_reset = $data['flag_monthly_reset'];
+        if ( !empty($data['flag_monthly_reset']) ) {
+            $credit->flag_monthly_reset = $data['flag_monthly_reset'];
+        }
         $credit->update();
         return $credit;
     }

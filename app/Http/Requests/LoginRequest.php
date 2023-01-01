@@ -31,7 +31,7 @@ class LoginRequest extends FormRequest
     public function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(
-            ResponseJson::responseBadOrError('Registration invalid',$validator, 400)
+            ResponseJson::responseBadOrError('Registration invalid', $validator->errors(), ResponseJson::HTTP_BAD_REQUEST)
         );
     }
 }

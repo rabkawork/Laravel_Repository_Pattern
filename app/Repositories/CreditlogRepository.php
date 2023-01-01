@@ -28,7 +28,7 @@ class CreditlogRepository
      */
     public function getAll()
     {
-        return $this->Creditlog
+        return $this->creditlog
             ->get();
     }
 
@@ -40,7 +40,7 @@ class CreditlogRepository
      */
     public function getById($id)
     {
-        return $this->Creditlog
+        return $this->creditlog
             ->where('id', $id)
             ->get();
     }
@@ -53,7 +53,7 @@ class CreditlogRepository
      */
     public function save($data)
     {
-        $creditlog = new $this->Creditlog;
+        $creditlog = new $this->creditlog;
         $creditlog->user_id = $data['user_id'];
         $creditlog->credit_id = $data['credit_id'];
         $creditlog->amount = $data['amount'];
@@ -70,7 +70,7 @@ class CreditlogRepository
      */
     public function update($data, $id)
     {
-        $creditlog = $this->Creditlog->find($id);
+        $creditlog = $this->creditlog->find($id);
         $creditlog->user_id = $data['user_id'];
         $creditlog->credit_id = $data['credit_id'];
         $creditlog->amount = $data['amount'];
@@ -87,7 +87,7 @@ class CreditlogRepository
      */
     public function delete($id)
     {
-        $creditlog = $this->Creditlog->find($id);
+        $creditlog = $this->creditlog->find($id);
         $creditlog->delete();
         return $creditlog;
     }

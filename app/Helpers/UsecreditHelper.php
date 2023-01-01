@@ -1,7 +1,7 @@
 <?php
 namespace App\Helpers;
 
-class CreditHelper {
+class UsecreditHelper {
     public const DEFAULT_CREDIT_OWNER = 0;
     public const DEFAULT_CREDIT_USER = 20;
     public const DEFAULT_CREDIT_USER_PREMIUM = 40;

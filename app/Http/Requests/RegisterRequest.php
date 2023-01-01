@@ -19,7 +19,7 @@ class RegisterRequest extends FormRequest
             'name' => 'required|string|max:30',
             'email' => 'required|string|email|max:20|unique:users',
             'password' => 'required|string|min:8',
-            'permission' => 'required|numeric|between:1,2,3'
+            'permission' => 'required|numeric|between:1,2'
         ];
     }
 
@@ -33,7 +33,7 @@ class RegisterRequest extends FormRequest
     public function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(
-            ResponseJson::responseBadOrError('Registration invalid',$validator, 400)
+            ResponseJson::responseBadOrError('Registration invalid', $validator->errors(), ResponseJson::HTTP_BAD_REQUEST)
         );
     }
 }

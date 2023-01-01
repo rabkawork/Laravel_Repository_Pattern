@@ -8,21 +8,19 @@ use Illuminate\Http\JsonResponse;
 
 class ResponseJson extends \Illuminate\Http\Response
 {
-    public static function responseSuccess(string $message, array $data): JsonResponse
+    public static function responseSuccess($message, $success)
     {
-        $message['status']  = true;
-        $message['message'] = $message;
-        $message['data']    = $data;
-        return response()->json($message, self::HTTP_OK);
-    }
-    
-    public static function responseBadOrError(string $message, array $error, int $httpCode): JsonResponse
-    {
-        $message['status']  = false;
-        $message['message'] = $message;
-        $message['error'] = $error;
-        return response()->json($message, $httpCode);
+        $data['status']  = true;
+        $data['message'] = $message;
+        $data['data']    = $success;
+        return response()->json($data, self::HTTP_OK);
     }
 
-
+    public static function responseBadOrError($message, $error, $httpCode)
+    {
+        $data['status']  = false;
+        $data['message'] = $message;
+        $data['error']   = $error;
+        return response()->json($data, $httpCode);
+    }
 }

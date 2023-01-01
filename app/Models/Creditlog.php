@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Creditlog extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        "user_id",
+        "credit_id",
+        "amount",
+        "description",
+    ];
+
 }

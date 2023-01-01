@@ -17,7 +17,7 @@ class CreateCreditsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('credit_total');
-            $table->dateTime('flag_monthly_reset');
+            $table->dateTime('flag_monthly_reset')->nullable();
             $table->timestamps();
         });
     }
