@@ -1,6 +1,6 @@
 ### Postman
 
-[Goto Postman documentation](github.com/rabkawork/be-technicaltest/postman/MamikosTest.postman_collection.json)
+[Goto Postman documentation](github.com/rabkawork/be-technicaltest/postman/Test.postman_collection.json)
 
 ### How to deploy App
 
